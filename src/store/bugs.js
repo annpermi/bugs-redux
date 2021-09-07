@@ -1,15 +1,48 @@
-import { createAction, createReducer } from '@reduxjs/toolkit';
+import { 
+    // createAction, createReducer, 
+    createSlice } from '@reduxjs/toolkit';
 // import produce from 'immer';
 
-//***********************************Action types*********************************************************
+//***********************************   Action types   *********************************************************
 
 // const BUG_ADDED = 'BUG_ADDED';
 // const BUG_REMOVED = 'BUG_REMOVED';
 // const BUG_RESOLVED = 'BUG_RESOLVED';
 
-//***********************************Action creators*********************************************************
+let lastId = 0; 
 
-export const bugAdded = createAction('bugAdded');
+const slice = createSlice({
+    name: 'bugs',
+    initialState: [],
+    reducers: {
+        //actions => actions handlers
+        bugAdded: (bugs, action) => {
+            bugs.push({
+                id: ++lastId,
+                description: action.payload.description,
+                resolved: false
+            })
+        },
+        bugResolved: (bugs, action) => {
+            const index = bugs.findIndex(bug => bug.id === action.payload.id)
+            bugs[index].resolved = true
+        },
+        bugRemoved: (bugs, action) => {
+            bugs.filter(bug => bug.id !== action.payload.id);
+        }
+    }
+})
+
+export const {bugAdded, bugResolved, bugRemoved} = slice.actions;
+export default slice.reducer;
+
+
+
+
+//***********************************   Action creators   *********************************************************
+
+// export const bugAdded = createAction('bugAdded');
+
 // export const bugAdded = description => ({
 //     type: BUG_ADDED,
 //     payload: {
@@ -17,7 +50,8 @@ export const bugAdded = createAction('bugAdded');
 //     }
 // })
 
-export const bugRemoved = createAction('bugRemoved');
+// export const bugRemoved = createAction('bugRemoved');
+
 // export const bugRemoved = id => ({
 //     type: BUG_REMOVED,
 //     payload: {
@@ -25,7 +59,8 @@ export const bugRemoved = createAction('bugRemoved');
 //     }
 // })
 
-export const bugResolved = createAction('bugResolved');
+// export const bugResolved = createAction('bugResolved');
+
 // export const bugResolved = id => ({
 //     type: BUG_RESOLVED,
 //     payload: {
@@ -34,27 +69,27 @@ export const bugResolved = createAction('bugResolved');
 // })
 
 
-//******************************************Reducer*************************************************************
-let lastId = 0;
+//******************************************   Reducer   *************************************************************
+// let lastId = 0;
 
-export default createReducer([], {
-    //key: value
-    //actions: functions (event => event handler)
-    [bugAdded.type]: (bugs, action) => {
-        bugs.push({
-            id: ++lastId,
-            description: action.payload.description,
-            resolved: false
-        })
-    },
-    [bugRemoved.type]: (bugs, action) => {
-        bugs.filter(bug => bug.id !== action.payload.id);
-    },
-    [bugResolved.type]: (bugs, action) => {
-        const index = bugs.findIndex(bug => bug.id === action.payload.id)
-        bugs[index].resolved = true
-    }
-})
+// export default createReducer([], {
+//     //key: value
+//     //actions: functions (event => event handler)
+//     [bugAdded.type]: (bugs, action) => {
+//         // bugs.push({
+//         //     id: ++lastId,
+//         //     description: action.payload.description,
+//         //     resolved: false
+//         // })
+//     },
+//     [bugRemoved.type]: (bugs, action) => {
+//         // bugs.filter(bug => bug.id !== action.payload.id);
+//     },
+//     [bugResolved.type]: (bugs, action) => {
+//         // const index = bugs.findIndex(bug => bug.id === action.payload.id)
+//         // bugs[index].resolved = true
+//     }
+// })
 
 //example how work createReducer 
 // produce(initialState, draftState => {
