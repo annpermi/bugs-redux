@@ -2,9 +2,9 @@ import { configureStore } from '@reduxjs/toolkit';
 // import { createStore } from 'redux';
 // import { devToolsEnhancer } from 'redux-devtools-extension';
 
-// import reducer from './reducer';
 // import reducer from '../bugs';
-import reducer from '../projects';
+// import reducer from '../projects';
+import reducer from '../reducer';
 
 
 //pass function reference

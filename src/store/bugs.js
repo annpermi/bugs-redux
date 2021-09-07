@@ -1,7 +1,7 @@
-import { 
-    // createAction, createReducer, 
-    createSlice } from '@reduxjs/toolkit';
+// import { createAction, createReducer } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 // import produce from 'immer';
+import { createSelector } from 'reselect';
 
 //***********************************   Action types   *********************************************************
 
@@ -36,6 +36,15 @@ const slice = createSlice({
 export const {bugAdded, bugResolved, bugRemoved} = slice.actions;
 export default slice.reducer;
 
+// export const getUnresolvedBugs = state => state.entities.bugs.filter(bug => !bug.resolved)
+
+//Memoization
+//bugs => get unresolved bugs from the cache
+export const getUnresolvedBugs = createSelector(
+    state => state.entities.bugs,
+    // bugs => bugs.filter(bug => !bug.resolved),
+    (bugs, projects) => bugs.filter(bug => !bug.resolved)
+)
 
 
 
