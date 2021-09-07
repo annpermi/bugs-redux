@@ -15,7 +15,7 @@ export const bugResolved = id => ({
 })
 
 export const bugRemoved = id => ({
-    type: 'BUG_REMOVED',
+    type: actions.BUG_REMOVED,
     payload: {
         id,
     }
