@@ -31,11 +31,11 @@ const slice = createSlice({
             bugs.filter(bug => bug.id !== action.payload.id);
         },
         //assign bug to a user
-        bugAssignedToUser: (bugs, action) => {
-            const {bugId, userId} = action.payload;
-            const index = bugs.findIndex(bug => bug.id === bugId);
-            bugs[index].userId = userId;
-        }
+        // bugAssignedToUser: (bugs, action) => {
+        //     const {bugId, userId} = action.payload;
+        //     const index = bugs.findIndex(bug => bug.id === bugId);
+        //     bugs[index].userId = userId;
+        // }
     }
 })
 
